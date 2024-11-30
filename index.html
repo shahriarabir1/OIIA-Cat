@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Cat Showcase</title>
+  <link rel="icon" href="./images/oicat.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/FBXLoader.js"></script>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="left" id="counter">0/8</div>
+  <div class="right">
+    <div class="icon">
+      <a href="https://x.com/oiia_meme" target="_blank"><img src="./images/x.png" alt="X" /></a>
+    </div>
+    <div class="icon">
+      <a href="https://t.me/oiia_cat_meme" target="_blank"><img src="./images/tg.png" alt="Telegram" /></a>
+    </div>
+    <a href="https://dexscreener.com/solana/4vwJn9e2aVsEpmyhwqGonkVJRtV5vKYJpEnrZceJpump" target="_blank"><img src="./images/dex_trn.png" alt="DFX" class="dfx-img" /></a>
+    <div style="background-color: white; border-radius: 10px;">
+      <div class="gen" id="generateButton">GENERATE PFP</div>
+    </div> 
+  </div>
+</div>
+
+<!-- Centered Text -->
+ <div class="help">
+  Help Me! <br>
+ </div>
+<div class="center-text">
+  Eliminate All Lame Cat Memes
+</div>
+<div class="shot">
+ SHOOT 'EM!
+</div>
+
+<canvas id="canvas"></canvas>
+<div id="container3D"></div>
+
+<!-- Hidden File Input -->
+<input type="file" id="fileInput" style="display: none;" />
+
+<script type="module" src="main.js"></script>
+<script src="backend.js"></script>
+
+</body>
+</html>

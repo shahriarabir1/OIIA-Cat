@@ -12,7 +12,7 @@ let showing=false;
 // Initialize the hidden images counter
 let hiddenCount = 0;
 class Img {
-    constructor(xpos, ypos, src, sizex, sizey, speed,src2) {
+    constructor(xpos, ypos, src, sizex, sizey, speed, src2) {
         this.xpos = xpos;
         this.ypos = ypos;
         this.sizex = sizex;
@@ -21,28 +21,66 @@ class Img {
         this.dx = Math.random() * this.speed * (Math.random() < 0.5 ? -1 : 1);
         this.dy = Math.random() * this.speed * (Math.random() < 0.5 ? -1 : 1);
         this.visible = true;
+        this.hitMarkerVisible = false; // To track hitMarker visibility
+        this.showText = false; // To track text visibility
         this.img = new Image();
         this.img.src = src;
-        this.img2=new Image();
-        this.img2.src=src2;
+        this.img2 = new Image();
+        this.img2.src = src2;
+
+        // HitMarker image
+        this.hitMarker = new Image();
+        this.hitMarker.src = "./images/hitmarker.png";
     }
 
     draw(ctx) {
         if (this.visible) {
-            // Draw the cat image
             ctx.drawImage(this.img, this.xpos, this.ypos, this.sizex, this.sizey);
-            // Draw the cross always in front of the cat image\
         }
-        if(showing){
-            ctx.drawImage(this.img2, this.xpos, this.ypos, this.sizex, this.sizey);
+
+        // Draw hitMarker if visible
+        if (this.hitMarkerVisible) {
+            ctx.drawImage(
+                this.hitMarker,
+                this.xpos + this.sizex / 2 - 20, // Center the hitMarker
+                this.ypos + this.sizey / 2 - 20,
+                40,
+                40
+            );
+        }
+
+        // Draw +100 text if visible
+        if (this.showText) {
+            ctx.font = "30px COD";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+      
+            ctx.fillText(
+                "+100",
+                this.xpos + this.sizex / 2, // Center the text horizontally
+                this.ypos - 10 // Position the text slightly above the hitMarker
+            );
         }
     }
-    
-    showings(){
-      showing=true;
-        setTimeout(()=>{
-           showing=false;
-        },2000)
+
+    hide() {
+        if (this.visible) {
+            this.visible = false;
+            this.hitMarkerVisible = true; // Show hitMarker
+            this.showText = true; // Show text
+            hiddenCount++;
+            updateCounter();
+
+            // Hide the hitMarker and text after 1 second
+            setTimeout(() => {
+                this.hitMarkerVisible = false;
+                this.showText = false;
+            }, 1000);
+
+            if (hiddenCount === all_images.length) {
+                canvas.style.cursor = "default";
+            }
+        }
     }
 
     update() {
@@ -57,25 +95,10 @@ class Img {
             if (this.ypos <= 0 || this.ypos + this.sizey >= canvas.height) {
                 this.dy *= -1;
             }
-
-            // Redraw the image and cross every frame
-            this.draw(ctx);
         }
-    }
 
-   
-
-    hide() {
-        if (this.visible) {
-            this.visible = false;
-            hiddenCount++;
-            updateCounter();
-            if (hiddenCount === all_images.length) {
-                // Start typewriter immediately
-                canvas.style.cursor = "default";
-                
-            }
-        }
+        // Always redraw (handles both visible and hitMarker states)
+        this.draw(ctx);
     }
 
     isClicked(x, y) {
@@ -87,6 +110,7 @@ class Img {
         );
     }
 }
+
 
 
 

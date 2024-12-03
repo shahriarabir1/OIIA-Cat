@@ -6,6 +6,11 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route('/', methods=['GET'])
+def gen():
+    return "Shahriar"  # Correct way to return a response for a GET request
+
 @app.route('/generate_pfp', methods=['POST'])
 def generate_pfp():
     if 'image' not in request.files:

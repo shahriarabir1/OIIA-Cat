@@ -27,8 +27,8 @@ async function uploadAndProcessImage(file) {
   try {
     // Change the URL to the backend's correct URL
     const response = await fetch(
-      "http://127.0.0.1:5000/generate_pfp",
-      //   "https://generatebgremoval-production.up.railway.app/generate_pfp",
+      //   "http://127.0.0.1:5000/generate_pfp",
+      "https://generatebgremoval-production.up.railway.app/generate_pfp",
       {
         method: "POST",
         body: formData,

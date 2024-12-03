@@ -100,3 +100,85 @@ document.onmousemove = (e) => {
 
 //Start the 3D rendering
 animate2();
+
+
+
+const bgImages = [];
+const numBackgroundImages = 20;
+const rotatingIndices = [];
+const rotationImages = [];
+
+// Load "oicat.png" for the stationary images
+for (let i = 0; i < numBackgroundImages; i++) {
+  const img = new Image();
+  img.src = "./images/oicat.png"; // Stationary image
+  bgImages.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speed: Math.random() * 2 + 1,
+    img: img,
+  });
+}
+
+// Load "rot.png" for the rotating images
+for (let i = 0; i < 5; i++) {
+  const img = new Image();
+  img.src = "./images/rot.png"; // Rotating image
+  rotationImages.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speed: Math.random() * 2 + 1,
+    rotationSpeed: Math.random() * 20 - 0.5,
+    img: img,
+    angle: Math.random() * 360, // Random initial angle for rotation
+  });
+}
+
+// Function to draw the background
+function drawBackground() {
+  ctx.globalAlpha = backgroundOpacity;
+
+  // Draw non-rotating "oicat.png" images (stationary)
+  bgImages.forEach((bg) => {
+    ctx.drawImage(bg.img, bg.x, bg.y, 60, 80);
+    bg.y += bg.speed;
+
+    // Reset position if the image moves out of bounds
+    if (bg.y >= canvas.height) {
+      bg.y = -50;
+      bg.x = Math.random() * canvas.width;
+    }
+  });
+
+  // Draw rotating "rot.png" images (rotating and flowing)
+  rotationImages.forEach((bg) => {
+    ctx.save();
+
+    // Rotate the image
+    const centerX = bg.x + 30; // Half width of the image (60 / 2)
+    const centerY = bg.y + 40; // Half height of the image (80 / 2)
+    ctx.translate(centerX, centerY);
+    ctx.rotate((bg.angle * Math.PI) / 180);
+    ctx.drawImage(bg.img, -30, -40, 60, 80); // Draw the rotated image
+
+    // Restore the context after transformations
+    ctx.restore();
+
+    // Update rotation and position
+    bg.angle += bg.rotationSpeed;
+    bg.y += bg.speed;
+
+    // Reset position if the image moves out of bounds
+    if (bg.y >= canvas.height) {
+      bg.y = -50;
+      bg.x = Math.random() * canvas.width;
+      bg.angle = Math.random() * 360; // Reset to a random angle
+    }
+  });
+
+  ctx.globalAlpha = 1;
+}
+
+
+const scaleX = Math.cos((bg.angle * Math.PI) / 180);
+      ctx.scale(scaleX, 1); // Simulate rotation effect on x-axis

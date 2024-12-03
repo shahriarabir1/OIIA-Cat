@@ -9,8 +9,9 @@
 body {
   margin: 0;
   overflow: hidden;
-  font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; /* Updated font-family */
-  cursor: url("./images/crosshair.png"),auto;
+  font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; /* Updated font-family */
+  cursor: url("./images/crosshair.png"), auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,17 +40,16 @@ body {
 .navbar .left {
   font-size: 3vw;
   font-weight: bold;
-  font-family: 'COD';
+  font-family: "COD";
   margin-left: 20px;
   letter-spacing: 0.1em;
-  
 }
 
 .navbar .right {
   display: flex;
   gap: 10px; /* Adjusted spacing */
   align-items: center;
-  float:right
+  float: right;
 }
 
 .navbar .icon img {
@@ -72,19 +72,25 @@ body {
   width: 140px; /* Size of the GENERATE button */
   height: 40px;
   cursor: pointer;
-  
+
   border-radius: 10px;
   display: flex; /* Flexbox for centering */
   align-items: center;
   justify-content: center;
   padding: 10px;
   color: transparent; /* Make the text transparent for background gradient effect */
-  background: linear-gradient(90deg, red, blue, #08a2aa, violet); /* Gradient for the text */
+  background: linear-gradient(
+    90deg,
+    red,
+    blue,
+    #08a2aa,
+    violet
+  ); /* Gradient for the text */
   -webkit-background-clip: text; /* Ensure the background gradient is applied only to the text */
   background-clip: text; /* Standard property */
   font-size: 20px; /* Adjust font size */
   font-weight: bold; /* Make the text bold */
-  font-family: 'COD';
+  font-family: "COD";
   letter-spacing: 0.1em;
 }
 
@@ -113,7 +119,7 @@ canvas {
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
   z-index: 4;
-  font-family: 'COD';
+  font-family: "COD";
   letter-spacing: 0.1rem;
 }
 .shot {
@@ -126,10 +132,10 @@ canvas {
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
   z-index: 1;
-  font-family: 'COD';
+  font-family: "COD";
   letter-spacing: 0.1em; /* Adjust spacing here */
 }
-.help{
+.help {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -137,8 +143,34 @@ canvas {
   font-size: 30px;
   color: black;
   font-weight: bold;
- 
+
   z-index: 4;
- 
+
   letter-spacing: 0.1em;
+}
+#videoContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: -1; /* Initially behind other elements */
+  transition: z-index 0s, opacity 0.5s;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 1s ease-in-out; /* Smooth fade effect */
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+#videoContainer.active {
+  z-index: 1000; /* Bring it to the front */
+  opacity: 1;
+  cursor: default; /* Make it visible */
+  pointer-events: auto; 
+}
+
+video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video fills the screen */
 }
